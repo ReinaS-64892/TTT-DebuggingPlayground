@@ -1,0 +1,11 @@
+{
+    "name": "net.rs64.ttt-debugging-playground",
+    "displayName": "TTT-DebuggingPlayground",
+    "version": "0.0.0",
+    "unity": "2022.3",
+    "description": "Non-destructive modification to Texture!",
+    "author": {
+      "name": "ReinaSakiria",
+      "url": "https://rs64.net/"
+    }
+  }
