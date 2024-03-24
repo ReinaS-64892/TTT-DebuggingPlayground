@@ -1,4 +1,4 @@
-
+#if UNITY_EDITOR
 using System.IO;
 using System.Linq;
 using net.rs64.MultiLayerImage.Parser.PSD;
@@ -33,3 +33,4 @@ namespace net.rs64.TTTDebuggingPlayground.TTT
 
     }
 }
+#endif

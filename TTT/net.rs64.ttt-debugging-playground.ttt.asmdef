@@ -7,9 +7,7 @@
         "net.rs64.tex-trans-core",
         "net.rs64.multi-layer-image-parser"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
