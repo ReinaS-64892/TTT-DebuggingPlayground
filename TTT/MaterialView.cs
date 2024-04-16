@@ -1,6 +1,4 @@
 #if UNITY_EDITOR
-using net.rs64.TexTransCore.MipMap;
-using net.rs64.TexTransCore.TransTextureCore.Utils;
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;

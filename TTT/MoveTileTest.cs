@@ -23,7 +23,7 @@ namespace net.rs64.TTTDebuggingPlayground.TTT
             }
             newMesh.uv = uv;
 
-            AssetSaveHelper.SaveAsset(newMesh);
+            AssetDatabase.CreateAsset(newMesh, AssetDatabase.GenerateUniqueAssetPath("Assets/" + newMesh.name + ".mesh"));
         }
     }
 

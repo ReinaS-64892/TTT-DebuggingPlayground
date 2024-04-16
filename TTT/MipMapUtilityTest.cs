@@ -1,5 +1,5 @@
 #if UNITY_EDITOR
-using net.rs64.TexTransCore.MipMap;
+// using net.rs64.TexTransCore.MipMap;
 using net.rs64.TexTransCore.TransTextureCore.Utils;
 using UnityEngine;
 namespace net.rs64.TTTDebuggingPlayground.TTT
@@ -20,7 +20,7 @@ namespace net.rs64.TTTDebuggingPlayground.TTT
             renderTexture.autoGenerateMips = false;
 
             Graphics.Blit(STex, renderTexture);
-            MipMapUtility.GenerateMips(renderTexture, DownScalingAlgorism.Average);
+            // MipMapUtility.GenerateMips(renderTexture, DownScalingAlgorism.Average);
 
             CTex = renderTexture.CopyTexture2D();
             CTex.alphaIsTransparency = true;

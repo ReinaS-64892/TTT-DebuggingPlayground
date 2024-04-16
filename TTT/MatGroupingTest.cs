@@ -27,7 +27,7 @@ public class MatGroupingTestEditor : Editor
             var materials = RendererUtility.GetMaterials(mgt.SearchRoot.GetComponentsInChildren<Renderer>())
             .Where(i => i != null)
             .Distinct()
-            .Select(m => (m, new List<(string, Texture2D)>(MaterialUtility.GetAllTexture2DProperty(m))))
+            .Select(m => (m, new List<(string, Texture2D)>()))
             .ToList();
 
             foreach (var mat in materials)
