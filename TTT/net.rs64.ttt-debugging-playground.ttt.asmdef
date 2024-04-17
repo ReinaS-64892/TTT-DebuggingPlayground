@@ -5,7 +5,8 @@
         "net.rs64.tex-trans-tool.editor",
         "net.rs64.tex-trans-tool.runtime",
         "net.rs64.tex-trans-core",
-        "net.rs64.multi-layer-image-parser"
+        "net.rs64.multi-layer-image-parser",
+        "Unity.Mathematics"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
