@@ -10,12 +10,12 @@ using UnityEngine.UIElements;
 namespace net.rs64.TTTDebuggingPlayground.TTT
 {
 
-    internal static class ExtractLowlevelPSDData
+    internal static class ExtractLowLevelPSDData
     {
-        internal const string AssetforBasePath = "Assets/TexTransTool/TTTDebuggingPlayground";
-        internal const string ToolsforBasePath = "Tools/TexTransTool/TTTDebuggingPlayground";
+        internal const string AssetForBasePath = "Assets/TexTransTool/TTTDebuggingPlayground";
+        internal const string ToolsForBasePath = "Tools/TexTransTool/TTTDebuggingPlayground";
 
-        [MenuItem(AssetforBasePath + "/ExtractLowlevelPSDData")]
+        [MenuItem(AssetForBasePath + "/ExtractLowLevelPSDData")]
         static void Execute()
         {
             var target = Selection.activeObject;
