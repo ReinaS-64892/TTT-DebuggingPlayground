@@ -21,9 +21,9 @@ namespace net.rs64.TTTDebuggingPlayground.TTT
             var target = Selection.activeObject;
 
             var path = AssetDatabase.GetAssetPath(target);
-            if (string.IsNullOrWhiteSpace(path) || Path.GetExtension(path) != ".psd") { return; }
+            if (string.IsNullOrWhiteSpace(path) || (Path.GetExtension(path) != ".psd" && Path.GetExtension(path) != ".psb")) { Debug.Log("知らない形式だぞ！！！"); }
 
-            Debug.Log("こにゃ～ん...PSDのLowLevelDataのしゅつりょくをするよ～");
+            Debug.Log("PSDのLowLevelDataのしゅつりょくをするよ！");
 
             var lowlevelData = PSDLowLevelParser.Parse(path);
             var jsonStr = JsonUtility.ToJson(lowlevelData, true);
