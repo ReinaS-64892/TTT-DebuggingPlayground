@@ -2,7 +2,7 @@
 using UnityEngine;
 using static Unity.Mathematics.math;
 
-namespace net.rs64.TTTDebuggingPlayground.TTT
+namespace net.rs64.TexTransTool.DebuggingPlayground
 {
 
     internal class ClipExclude : BlendingReversEngrailingBase

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
-namespace net.rs64.TTTDebuggingPlayground.TTT
+namespace net.rs64.TexTransTool.DebuggingPlayground
 {
 
     public class MaterialView : MonoBehaviour
@@ -13,7 +13,7 @@ namespace net.rs64.TTTDebuggingPlayground.TTT
 
 
     [CustomEditor(typeof(MaterialView))]
-    public class MaterialViewEditor : Editor
+    public class MaterialViewEditor : UnityEditor.Editor
     {
         bool Tex;
         bool ShowNullTex;

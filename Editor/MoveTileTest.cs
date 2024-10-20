@@ -4,7 +4,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
 using net.rs64.TexTransTool;
-namespace net.rs64.TTTDebuggingPlayground.TTT
+namespace net.rs64.TexTransTool.DebuggingPlayground
 {
 
     public class MoveTileTest : MonoBehaviour

@@ -8,7 +8,7 @@ using net.rs64.TexTransCoreEngineForUnity.Utils;
 using net.rs64.TexTransTool.TextureAtlas.FineTuning;
 using System.Linq;
 using System;
-namespace net.rs64.TTTDebuggingPlayground.TTT
+namespace net.rs64.TexTransTool.DebuggingPlayground
 {
 
     public class ShowTextureFineTuningsOrder : MonoBehaviour

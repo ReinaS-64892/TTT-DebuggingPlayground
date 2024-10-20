@@ -1,5 +1,5 @@
 {
-    "name": "net.rs64.ttt-debugging-playground.ttt",
+    "name": "net.rs64.ttt-debugging-playground",
     "rootNamespace": "",
     "references": [
         "net.rs64.tex-trans-tool.editor",

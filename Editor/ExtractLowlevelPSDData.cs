@@ -1,13 +1,13 @@
 #if UNITY_EDITOR
 using System.IO;
 using System.Linq;
-using net.rs64.MultiLayerImage.Parser.PSD;
+using net.rs64.PSDParser;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace net.rs64.TTTDebuggingPlayground.TTT
+namespace net.rs64.TexTransTool.DebuggingPlayground
 {
 
     internal static class ExtractLowLevelPSDData

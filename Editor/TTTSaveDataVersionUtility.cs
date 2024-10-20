@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 using net.rs64.TexTransTool;
 using System.IO;
 using System.Linq;
-namespace net.rs64.TTTDebuggingPlayground.TTT
+namespace net.rs64.TexTransTool.DebuggingPlayground
 {
 
     internal static class TTTSaveDataVersionUtility

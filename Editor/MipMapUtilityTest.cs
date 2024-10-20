@@ -2,7 +2,7 @@
 // using net.rs64.TexTransCore.MipMap;
 using net.rs64.TexTransCoreEngineForUnity.Utils;
 using UnityEngine;
-namespace net.rs64.TTTDebuggingPlayground.TTT
+namespace net.rs64.TexTransTool.DebuggingPlayground
 {
 
     public class MipMapUtilityTest : MonoBehaviour

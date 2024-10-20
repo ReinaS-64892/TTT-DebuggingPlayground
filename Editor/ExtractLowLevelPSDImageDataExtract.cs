@@ -2,13 +2,13 @@
 using System;
 using System.IO;
 using System.Linq;
-using net.rs64.MultiLayerImage.Parser.PSD;
+using net.rs64.PSDParser;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace net.rs64.TTTDebuggingPlayground.TTT
+namespace net.rs64.TexTransTool.DebuggingPlayground
 {
 
     internal static class ExtractLowLevelPSDImageDataExtract
@@ -28,7 +28,7 @@ namespace net.rs64.TTTDebuggingPlayground.TTT
 
 
 
-            var format = TexTransTool.MultiLayerImage.PSDImportedRasterImage.BitDepthToTextureFormat(lowLevelData.BitDepth, lowLevelData.Channels);
+            var format = TexTransTool.PSDImporter.PSDImportedRasterImage.BitDepthToTextureFormat(lowLevelData.BitDepth, lowLevelData.Channels);
             var buffer = new byte[ChannelImageDataParser.ChannelImageData.GetImageByteCount((int)lowLevelData.Width, (int)lowLevelData.Height, lowLevelData.BitDepth) * lowLevelData.Channels];
 
             PSDLowLevelParser.LoadImageData(psdByte, lowLevelData, buffer);
