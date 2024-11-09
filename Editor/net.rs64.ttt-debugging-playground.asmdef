@@ -7,7 +7,8 @@
         "net.rs64.tt-unity-core",
         "net.rs64.psd-parser.low-level",
         "net.rs64.ttt-psd-importer.runtime",
-        "Unity.Mathematics"
+        "Unity.Mathematics",
+        "net.rs64.tex-trans-core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
