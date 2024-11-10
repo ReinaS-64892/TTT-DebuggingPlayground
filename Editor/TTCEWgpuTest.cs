@@ -49,6 +49,9 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
         public ITexTransComputeKeyDictionary<string> GrabBlend => ShaderDictionary;
 
         public ITexTransComputeKeyDictionary<ITTBlendKey> BlendKey => ShaderDictionary;
+
+        public ITexTransComputeKeyDictionary<string> GenealCompute => ShaderDictionary.GenealCompute;
+
         public ITTBlendKey QueryBlendKey(string blendKeyName) => ShaderDictionary.QueryBlendKey(blendKeyName);
 
 
@@ -137,10 +140,15 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
             public ITTComputeKey BilinearReScaling { get; private set; }
             public ITTComputeKey GammaToLinear { get; private set; }
             public ITTComputeKey LinearToGamma { get; private set; }
+
+            public ITTComputeKey Swizzling { get; private set; }
+
             public ITTBlendKey QueryBlendKey(string blendKeyName)
             {
                 return new BlendKey(_shaderDict[TTComputeType.Blending][blendKeyName]);
             }
+
+            public ITexTransComputeKeyDictionary<string> GenealCompute { get; private set; }
 
             public ShaderDictionary(Dictionary<TTComputeType, Dictionary<string, TTComputeShaderID>> dict)
             {
@@ -154,8 +162,21 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
                 BilinearReScaling = _shaderDict[TTComputeType.General][nameof(BilinearReScaling)];
                 GammaToLinear = _shaderDict[TTComputeType.General][nameof(GammaToLinear)];
                 LinearToGamma = _shaderDict[TTComputeType.General][nameof(LinearToGamma)];
+                Swizzling = _shaderDict[TTComputeType.General][nameof(Swizzling)];
+                GenealCompute = new GeneralComputeObject(_shaderDict[TTComputeType.General]);
             }
 
+            class GeneralComputeObject : ITexTransComputeKeyDictionary<string>
+            {
+                private Dictionary<string, TTComputeShaderID> dictionary;
+
+                public GeneralComputeObject(Dictionary<string, TTComputeShaderID> dictionary)
+                {
+                    this.dictionary = dictionary;
+                }
+
+                public ITTComputeKey this[string key] => dictionary[key];
+            }
         }
 
         class BlendKey : ITTBlendKey
