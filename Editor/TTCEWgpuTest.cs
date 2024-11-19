@@ -26,7 +26,7 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
             if (Result != null) { DestroyImmediate(Result); }
             using var ttceWgpuDevice = new TTCEWgpuDevice();
             ttceWgpuDevice.SetDefaultTextureFormat(TexTransCoreTextureFormat.Byte);
-            var sd = ShaderFinder.RegisterShaders(ttceWgpuDevice);
+            var sd = ShaderFinder.RegisterShaders(ttceWgpuDevice, ShaderFinder.GetAllShaderPathWithCurrentDirectory());
 
             using var ttceWgpu = ttceWgpuDevice.GetContext<TTCEWgpuWithTTT4Unity>();
             ttceWgpu.ShaderDictionary = sd;
