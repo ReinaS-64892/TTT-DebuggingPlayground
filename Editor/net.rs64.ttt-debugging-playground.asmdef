@@ -18,6 +18,11 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+      "name": "net.rs64.ttce-wgpu",
+      "expression": "[0.0.0]",
+      "define": "CONTAINS_TTCE_WGPU"
+    }],
     "noEngineReferences": false
 }
