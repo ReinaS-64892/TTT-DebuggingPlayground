@@ -1,6 +1,4 @@
-#if UNITY_EDITOR
-// using net.rs64.TexTransCore.MipMap;
-using net.rs64.TexTransCoreEngineForUnity.Utils;
+#if UNITY_EDITORUtils
 using UnityEngine;
 namespace net.rs64.TexTransTool.DebuggingPlayground
 {

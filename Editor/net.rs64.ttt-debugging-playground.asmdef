@@ -4,10 +4,12 @@
     "references": [
         "net.rs64.tex-trans-tool.editor",
         "net.rs64.tex-trans-tool.runtime",
-        "net.rs64.tt-unity-core",
+        "net.rs64.ttce-unity",
         "net.rs64.psd-parser.low-level",
         "net.rs64.ttt-psd-importer.runtime",
-        "Unity.Mathematics"
+        "Unity.Mathematics",
+        "net.rs64.tex-trans-core",
+        "net.rs64.ttce-wgpu"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -16,6 +18,11 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+      "name": "net.rs64.ttce-wgpu",
+      "expression": "[0.0.0]",
+      "define": "CONTAINS_TTCE_WGPU"
+    }],
     "noEngineReferences": false
 }
