@@ -14,7 +14,7 @@ using Debug = UnityEngine.Debug;
 namespace net.rs64.TexTransTool.DebuggingPlayground
 {
 
-    public class TTCEWgpuTest : MonoBehaviour
+    public class TTCEWgpuCanvasTest : MonoBehaviour
     {
         public MultiLayerImageCanvas Canvas;
         public Texture2D Result;
