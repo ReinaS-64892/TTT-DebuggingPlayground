@@ -27,6 +27,10 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
         void test()
         {
             if (Results.Any()) { foreach (var t in Results) { if (t != null) { DestroyImmediate(t); } } }
+            var domainRoot = DomainMarkerFinder.FindMarker(SimpleDecal.gameObject);
+            var domaineRenderers = domainRoot.GetComponentsInChildren<Renderer>(true).Where(r => r is SkinnedMeshRenderer or MeshRenderer);
+            OriginEqual originEqual = (l, r) => l == r;
+
             using var ttceWgpuDevice = new TTCEWgpuDevice();
             ttceWgpuDevice.SetDefaultTextureFormat(TexTransCoreTextureFormat.Byte);
             var sd = ShaderFinder.RegisterShaders(ttceWgpuDevice, ShaderFinder.GetAllShaderPathWithCurrentDirectory(), ShaderFinder.CurrentDirectoryFind);
@@ -36,16 +40,18 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
 
             var decalTexture = ttceWgpu.LoadTextureWidthFullScale((ttceWgpu as ITexTransToolForUnity).Wrapping(SimpleDecal.DecalTexture));
 
-            var decalCtx = new DecalContext<ParallelProjectionSpace, ITrianglesFilter<ParallelProjectionSpace>>(ttceWgpu, SimpleDecal.GetSpaceConverter(), SimpleDecal.GetTriangleFilter());
-            decalCtx.DecalPadding = SimpleDecal.Padding;
+            var decalCtx = new DecalContext
+            <ParallelProjectionSpaceConvertor, ParallelProjectionSpace, ITrianglesFilter<ParallelProjectionSpace, IFilteredTriangleHolder>, IFilteredTriangleHolder>
+            (ttceWgpu, SimpleDecal.GetSpaceConverter(), SimpleDecal.GetTriangleFilter(originEqual));
             decalCtx.TargetPropertyName = SimpleDecal.TargetPropertyName;
+            decalCtx.IsTextureStretch = false;
+            decalCtx.DecalPadding = SimpleDecal.Padding;
+            decalCtx.HighQualityPadding = false;
+            decalCtx.UseDepthOrInvert = SimpleDecal.GetUseDepthOrInvert;
+            decalCtx.DrawMaskMaterials = SimpleDecal.RendererSelector.GetOrNullAutoMaterialHashSet(domaineRenderers, originEqual);
 
-
-            var decalCompiledRenderTextures = new Dictionary<Material, TTRenderTexWithDistance>();
-            foreach (var renderer in SimpleDecal.TargetRenderers)
-            {
-                decalCtx.WriteDecalTexture(decalCompiledRenderTextures, renderer, decalTexture);
-            }
+            var targetRenderers = SimpleDecal.RendererSelector.GetSelectedOrIncludingAll(domaineRenderers, originEqual, out _);
+            var decalCompiledRenderTextures = decalCtx.WriteDecalTexture<Texture2D>(targetRenderers, decalTexture);
 
             Results = decalCompiledRenderTextures.Select(i => i.Value).Select(i => ttceWgpu.DownloadToTexture2D(i.Texture)).ToList();
             foreach (var t in decalCompiledRenderTextures) t.Value.Dispose();
