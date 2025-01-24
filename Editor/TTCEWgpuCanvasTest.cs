@@ -9,6 +9,7 @@ using net.rs64.TexTransCore;
 using net.rs64.TexTransCoreEngineForWgpu;
 using net.rs64.TexTransTool.MultiLayerImage;
 using UnityEngine;
+using UnityEngine.Profiling;
 using Debug = UnityEngine.Debug;
 
 namespace net.rs64.TexTransTool.DebuggingPlayground
@@ -24,6 +25,7 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
         void test()
         {
             if (Result != null) { DestroyImmediate(Result); }
+            Profiler.BeginSample("ctr TTCEWgpuDevice");
             using var ttceWgpuDevice = new TTCEWgpuDevice();
             ttceWgpuDevice.SetDefaultTextureFormat(TexTransCoreTextureFormat.Byte);
             var sd = ShaderFinder.RegisterShaders(ttceWgpuDevice, ShaderFinder.GetAllShaderPathWithCurrentDirectory(), ShaderFinder.CurrentDirectoryFind);
@@ -31,13 +33,22 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
             using var ttceWgpu = ttceWgpuDevice.GetContext<TTCEWgpuWithTTT4Unity>();
             ttceWgpu.ShaderDictionary = sd;
 
+            Profiler.EndSample();
+            Profiler.BeginSample("EvaluateCanvas");
+
             var resultRt = Canvas.EvaluateCanvas(ttceWgpu, Canvas?.tttImportedCanvasDescription?.Width ?? 1024, Canvas?.tttImportedCanvasDescription?.Height ?? 1024);
+
+            Profiler.EndSample();
+            Profiler.BeginSample("Finalize");
             var tex = new Texture2D(resultRt.Width, resultRt.Hight, TextureFormat.RGBA32, false);
             var map = tex.GetRawTextureData<byte>();
 
+            Profiler.BeginSample("DownloadTexture");
             ttceWgpu.DownloadTexture(map.AsSpan(), TexTransCoreTextureFormat.Byte, resultRt);
+            Profiler.EndSample();
             tex.Apply();
             Result = tex;
+            Profiler.EndSample();
         }
     }
 }
