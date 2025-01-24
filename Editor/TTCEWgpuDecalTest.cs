@@ -28,7 +28,7 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
         {
             if (Results.Any()) { foreach (var t in Results) { if (t != null) { DestroyImmediate(t); } } }
             var domainRoot = DomainMarkerFinder.FindMarker(SimpleDecal.gameObject);
-            var domaineRenderers = domainRoot.GetComponentsInChildren<Renderer>(true).Where(r => r is SkinnedMeshRenderer or MeshRenderer);
+            var domaineRenderers = new AvatarDomain(domainRoot, false, false, null);
             OriginEqual originEqual = (l, r) => l == r;
 
             using var ttceWgpuDevice = new TTCEWgpuDevice();
@@ -48,9 +48,9 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
             decalCtx.DecalPadding = SimpleDecal.Padding;
             decalCtx.HighQualityPadding = false;
             decalCtx.UseDepthOrInvert = SimpleDecal.GetUseDepthOrInvert;
-            decalCtx.DrawMaskMaterials = SimpleDecal.RendererSelector.GetOrNullAutoMaterialHashSet(domaineRenderers, originEqual);
+            decalCtx.DrawMaskMaterials = SimpleDecal.RendererSelector.GetOrNullAutoMaterialHashSet(domaineRenderers);
 
-            var targetRenderers = SimpleDecal.RendererSelector.GetSelectedOrIncludingAll(domaineRenderers, originEqual, out _);
+            var targetRenderers = SimpleDecal.RendererSelector.GetSelectedOrIncludingAll(domaineRenderers, out _);
             var decalCompiledRenderTextures = decalCtx.WriteDecalTexture<Texture2D>(targetRenderers, decalTexture);
 
             Results = decalCompiledRenderTextures.Select(i => i.Value).Select(i => ttceWgpu.DownloadToTexture2D(i.Texture)).ToList();
