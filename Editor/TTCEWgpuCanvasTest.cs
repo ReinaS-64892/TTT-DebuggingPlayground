@@ -33,10 +33,13 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
             using var ttceWgpu = ttceWgpuDevice.GetContext<TTCEWgpuWithTTT4Unity>();
             ttceWgpu.ShaderDictionary = sd;
 
+            var nwDomain = new NotWorkDomain(Array.Empty<Renderer>(), ttceWgpu);
+
             Profiler.EndSample();
             Profiler.BeginSample("EvaluateCanvas");
 
-            var resultRt = Canvas.EvaluateCanvas(ttceWgpu, Canvas?.tttImportedCanvasDescription?.Width ?? 1024, Canvas?.tttImportedCanvasDescription?.Height ?? 1024);
+            var gloCtx = new GenerateLayerObjectContext(nwDomain, (Canvas?.tttImportedCanvasDescription?.Width ?? 1024, Canvas?.tttImportedCanvasDescription?.Height ?? 1024));
+            var resultRt = Canvas.EvaluateCanvas(gloCtx);
 
             Profiler.EndSample();
             Profiler.BeginSample("Finalize");
