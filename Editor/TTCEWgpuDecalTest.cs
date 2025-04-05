@@ -30,12 +30,8 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
             var domainRoot = DomainMarkerFinder.FindMarker(SimpleDecal.gameObject);
             OriginEqual originEqual = (l, r) => l == r;
 
-            using var ttceWgpuDevice = new TTCEWgpuDevice();
-            ttceWgpuDevice.SetDefaultTextureFormat(TexTransCoreTextureFormat.Byte);
-            var sd = ShaderFinder.RegisterShaders(ttceWgpuDevice, ShaderFinder.GetAllShaderPathWithCurrentDirectory(), ShaderFinder.CurrentDirectoryFind);
-
-            using var ttceWgpu = ttceWgpuDevice.GetContext<TTCEWgpuWithTTT4Unity>();
-            ttceWgpu.ShaderDictionary = sd;
+            using var ttceWgpuDevice = new TTCEWgpuDeviceWithTTT4Unity(format:TexTransCoreTextureFormat.Byte);
+            using var ttceWgpu = ttceWgpuDevice.GetTTCEWgpuContext();
 
             using var tempAssets = new TempAssetHolder();
             var domaineRenderers = new AvatarDomain(domainRoot, tempAssets, null, ttceWgpu);
