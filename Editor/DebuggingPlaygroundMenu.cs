@@ -26,6 +26,7 @@ namespace net.rs64.TexTransTool
 
         public void OnGUI()
         {
+            EditorGUILayout.HelpBox("This is a Debug Menu !!!, If you do not understand it, do not touch this menu !!!\nこれはデバッグメニューです!!! 理解できないのであればこのメニューは使用しないでください!!!", MessageType.Warning);
             if (_dirty) { _dirty = false; _menus = _menus.OrderBy(m => m.Debugger.MenuName).ToList(); }
             foreach (var debuggerState in _menus)
             {
