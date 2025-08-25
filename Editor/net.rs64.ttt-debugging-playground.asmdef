@@ -11,7 +11,9 @@
         "net.rs64.tex-trans-core",
         "net.rs64.ttce-wgpu"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
@@ -20,9 +22,10 @@
     "defineConstraints": [],
     "versionDefines": [
         {
-      "name": "net.rs64.ttce-wgpu",
-      "expression": "[0.0.0]",
-      "define": "CONTAINS_TTCE_WGPU"
-    }],
+            "name": "net.rs64.ttce-wgpu",
+            "expression": "0.2.0",
+            "define": "CONTAINS_TTCE_WGPU"
+        }
+    ],
     "noEngineReferences": false
 }

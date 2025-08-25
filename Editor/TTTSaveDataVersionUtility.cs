@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
@@ -8,13 +7,26 @@ using System.IO;
 using System.Linq;
 namespace net.rs64.TexTransTool.DebuggingPlayground
 {
-
-    internal static class TTTSaveDataVersionUtility
+    internal class TTTSaveDataVersionUtility : TTTMenu.ITTTMenuWindow
     {
-        [MenuItem(ExtractLowLevelPSDData.ToolsForBasePath + "/RevertPrefabOverrideTTTSaveDataVersion")]
+        [InitializeOnLoadMethod]
+        static void Registering()
+        {
+            DebuggingPlaygroundMenu.RegisterMenu(new TTTSaveDataVersionUtility());
+        }
+        public string MenuName => "TTTSaveDataVersionUtility";
+
+        public void OnGUI()
+        {
+            if (GUILayout.Button("RevertPrefabOverrideTTTSaveDataVersion"))
+                RevertPrefabOverrideTTTSaveDataVersion();
+            if (GUILayout.Button("DecrementTTTSaveDataVersion"))
+                DecrementTTTSaveDataVersion();
+        }
         static void RevertPrefabOverrideTTTSaveDataVersion()
         {
-            Debug.Log("TTTSaveDataVersion の プレハブオーバーライドを全部消すわよ！！");
+            var result = EditorUtility.DisplayDialog("警告", "TTTSaveDataVersion の プレハブオーバーライドを全部消すわよ！！", "やって", "だめ");
+            if (result is false) { return; }
 
             foreach (var prefab in EnumerateModifiablePrefabs())
             {
@@ -67,11 +79,11 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
                 PrefabUtility.UnloadPrefabContents(prefab);
             }
         }
-
-        [MenuItem(ExtractLowLevelPSDData.ToolsForBasePath + "/DecrementTTTSaveDataVersion")]
         static void DecrementTTTSaveDataVersion()
         {
-            Debug.Log("TTTSaveDataVersion の を全部無理やり下げるよ！どうなってもしらないからね！");
+            var result = EditorUtility.DisplayDialog("警告", "TTTSaveDataVersion の を全部無理やり下げるよ！どうなってもしらないからね！", "やって", "だめ");
+            if (result is false) { return; }
+
             foreach (var prefab in EnumerateModifiablePrefabs())
             {
                 foreach (var c in prefab.GetComponentsInChildren<ITexTransToolTag>(true).OfType<Component>())
@@ -88,4 +100,3 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
 
 
 }
-#endif

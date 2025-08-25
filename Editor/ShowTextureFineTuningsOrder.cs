@@ -1,24 +1,34 @@
-#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using net.rs64.TexTransTool.TextureAtlas.FineTuning;
 using System.Linq;
 using net.rs64.TexTransTool.Utils;
+using System.Collections.Generic;
 namespace net.rs64.TexTransTool.DebuggingPlayground
 {
-
-    public class ShowTextureFineTuningsOrder : MonoBehaviour
+    internal class ShowTextureFineTuningsOrder : TTTMenu.ITTTMenuWindow
     {
+        private List<ITuningProcessor> applicantList;
 
-        [ContextMenu("Show!!!")]
-        void Show()
+        [InitializeOnLoadMethod]
+        static void Registering()
         {
-            var applicantList = InterfaceUtility.CreateConcreteAssignableTypeInstances<ITuningProcessor>().ToList();
-            applicantList.Sort((L, R) => L.Order - R.Order);
-
-            Debug.Log(string.Join("\n", applicantList.Select(a => $" order-{a.Order} : {a.GetType().Name} ")));
+            DebuggingPlaygroundMenu.RegisterMenu(new ShowTextureFineTuningsOrder());
         }
+        public string MenuName => "ShowTextureFineTuningsOrder";
+
+
+        public void OnGUI()
+        {
+            if (applicantList is null)
+            {
+                applicantList = InterfaceUtility.CreateConcreteAssignableTypeInstances<ITuningProcessor>().ToList();
+                applicantList.Sort((L, R) => L.Order - R.Order);
+            }
+            foreach (var a in applicantList)
+                GUILayout.Label($"order - {a.Order} : {a.GetType().Name} ");
+        }
+
     }
 
 }
-#endif

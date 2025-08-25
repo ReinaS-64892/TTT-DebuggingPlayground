@@ -12,10 +12,22 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace net.rs64.TexTransTool.DebuggingPlayground
 {
-
-    public class ImportedImageAllGenerate : MonoBehaviour
+    internal class  ImportedImageAllGenerate : TTTMenu.ITTTMenuWindow
     {
-        [ContextMenu("Execute")]
+        [InitializeOnLoadMethod]
+        static void Registering()
+        {
+            DebuggingPlaygroundMenu.RegisterMenu(new ImportedImageAllGenerate());
+        }
+        public string MenuName => "ImportedImageAllGenerate";
+
+        public void OnGUI()
+        {
+            if (GUILayout.Button("Do ImportedImageAllGenerate"))
+            {
+                Test();
+            }
+        }
         public async void Test()
         {
             CanvasImportedImagePreviewManager.InvalidatesCacheAll();
