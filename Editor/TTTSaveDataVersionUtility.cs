@@ -5,6 +5,8 @@ using UnityEngine.Rendering;
 using net.rs64.TexTransTool;
 using System.IO;
 using System.Linq;
+using System;
+using System.Reflection;
 namespace net.rs64.TexTransTool.DebuggingPlayground
 {
     internal class TTTSaveDataVersionUtility : TTTMenu.ITTTMenuWindow
@@ -16,11 +18,23 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
         }
         public string MenuName => "TTTSaveDataVersionUtility";
 
+        TexTransMonoBase target;
+        Action<object, object> fieldSet;
+
         public void OnGUI()
         {
-            if (GUILayout.Button("RevertPrefabOverrideTTTSaveDataVersion"))
+            target = EditorGUI.ObjectField(EditorGUILayout.GetControlRect(), target, typeof(TexTransMonoBase), true) as TexTransMonoBase;
+            if (target != null)
+            {
+                fieldSet ??= typeof(TexTransMonoBase).GetField("_saveDataVersion", BindingFlags.Instance | BindingFlags.NonPublic).SetValue;
+                Undo.RecordObject(target, "set SaveDataVersion");
+                var bVal = (target as ITexTransToolTag).SaveDataVersion;
+                var val = EditorGUILayout.IntField("SaveDataVersion", bVal);
+                if (bVal != val) { fieldSet(target, val); }
+            }
+            if (GUILayout.Button("RevertPrefabOverrideTTTSaveDataVersion-ALL"))
                 RevertPrefabOverrideTTTSaveDataVersion();
-            if (GUILayout.Button("DecrementTTTSaveDataVersion"))
+            if (GUILayout.Button("DecrementTTTSaveDataVersion-ALL"))
                 DecrementTTTSaveDataVersion();
         }
         static void RevertPrefabOverrideTTTSaveDataVersion()
