@@ -1,5 +1,4 @@
-#if UNITY_EDITOR && CONTAINS_TTCE_WGPU
-
+#if CONTAINS_TTCE_WGPU
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,26 +7,40 @@ using System.Linq;
 using net.rs64.TexTransCore;
 using net.rs64.TexTransCoreEngineForWgpu;
 using net.rs64.TexTransTool.MultiLayerImage;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Profiling;
 using Debug = UnityEngine.Debug;
 
 namespace net.rs64.TexTransTool.DebuggingPlayground
 {
-
-    public class TTCEWgpuCanvasTest : MonoBehaviour
+    internal class TTCEWgpuCanvasTest : TTTMenu.ITTTMenuWindow
     {
+        [InitializeOnLoadMethod]
+        static void Registering()
+        {
+            DebuggingPlaygroundMenu.RegisterMenu(new TTCEWgpuCanvasTest());
+        }
+        public string MenuName => "TTCEWgpuCanvasTest";
+
         public MultiLayerImageCanvas Canvas;
         public Texture2D Result;
 
-
-        [ContextMenu("Test!!!")]
+        public void OnGUI()
+        {
+            Canvas = EditorGUI.ObjectField(EditorGUILayout.GetControlRect(), Canvas, typeof(MultiLayerImageCanvas), true) as MultiLayerImageCanvas;
+            if (GUILayout.Button("Do!"))
+            {
+                test();
+            }
+            Result = EditorGUI.ObjectField(EditorGUILayout.GetControlRect(), Result, typeof(Texture2D), true) as Texture2D;
+        }
         void test()
         {
-            if (Result != null) { DestroyImmediate(Result); }
+            if (Result != null) { UnityEngine.Object.DestroyImmediate(Result); }
             Profiler.BeginSample("ctr TTCEWgpuDevice");
 
-            using var ttceWgpuDevice = new TTCEWgpuDeviceWithTTT4Unity(format:TexTransCoreTextureFormat.Byte);
+            using var ttceWgpuDevice = new TTCEWgpuDeviceWithTTT4Unity(format: TexTransCoreTextureFormat.Byte);
             using var ttceWgpu = ttceWgpuDevice.GetTTCEWgpuContext();
 
             var nwDomain = new NotWorkDomain(Array.Empty<Renderer>(), ttceWgpu);
