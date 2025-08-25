@@ -15,7 +15,7 @@ namespace net.rs64.TexTransTool
 {
     internal sealed class DebuggingPlaygroundMenu : TTTMenu.ITTTMenuWindow
     {
-        public string MenuName => "DebuggingPlaygroundMenu";
+        public string MenuName => "DebuggingPlayground";
         [InitializeOnLoadMethod]
         static void Registering()
         {
