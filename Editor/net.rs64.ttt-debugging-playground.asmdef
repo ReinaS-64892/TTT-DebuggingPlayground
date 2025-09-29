@@ -9,7 +9,10 @@
         "net.rs64.ttt-psd-importer.runtime",
         "Unity.Mathematics",
         "net.rs64.tex-trans-core",
-        "net.rs64.ttce-wgpu"
+        "net.rs64.ttce-wgpu",
+        "net.rs64.ttt-clip-importer.editor",
+        "net.rs64.clip-parser",
+        "net.rs64.parser-utility"
     ],
     "includePlatforms": [
         "Editor"

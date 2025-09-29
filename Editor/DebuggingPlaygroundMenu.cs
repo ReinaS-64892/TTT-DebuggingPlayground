@@ -11,7 +11,7 @@ using Unity.Collections.LowLevel.Unsafe;
 using UnityEditor;
 using UnityEngine;
 
-namespace net.rs64.TexTransTool
+namespace net.rs64.TexTransTool.DebuggingPlayground
 {
     internal sealed class DebuggingPlaygroundMenu : TTTMenu.ITTTMenuWindow
     {
