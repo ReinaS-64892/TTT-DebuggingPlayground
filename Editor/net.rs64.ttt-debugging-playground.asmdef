@@ -28,6 +28,11 @@
             "name": "net.rs64.ttce-wgpu",
             "expression": "0.2.0",
             "define": "CONTAINS_TTCE_WGPU"
+        },
+        {
+            "name": "net.rs64.ttt-clip-importer",
+            "expression": "",
+            "define": "CONTAINS_TTT_CLIP_IMPORTER"
         }
     ],
     "noEngineReferences": false

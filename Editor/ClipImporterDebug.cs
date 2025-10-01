@@ -1,4 +1,5 @@
 #nullable enable
+#if CONTAINS_TTT_CLIP_IMPORTER
 using System.IO;
 using net.rs64.TexTransTool.ClipImporter;
 using net.rs64.TexTransTool.ClipParser;
@@ -77,3 +78,4 @@ namespace net.rs64.TexTransTool.DebuggingPlayground
         }
     }
 }
+#endif
